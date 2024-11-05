@@ -5,7 +5,8 @@ import plotly.graph_objects as go
 from dash import Dash, dcc, html
 import dash_bootstrap_components as dbc
 
-app = Dash(__name__)
+# Solo una definición del objeto Dash
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
 # Cargar los datos
 # base_path = "C:/Users/andre/OneDrive/Escritorio/Maestria IA/Semestre 1/Aplicaciones I/Actividad 4 -Carlos Andres Loaiza Ruiz/"
@@ -100,7 +101,6 @@ table_fig = go.Figure(
     ]
 )
 
-
 # f) Histograma: Distribución de muertes según rangos de edad
 df_muertes['GRUPO_EDAD'] = df_muertes['GRUPO_EDAD'].astype(str)
 df_muertes['GRUPO_EDAD'] = df_muertes['GRUPO_EDAD'].str.replace(' años', '')
@@ -111,7 +111,6 @@ df_muertes['EDAD_RANGO'] = pd.cut(
 )
 fig_hist = px.histogram(df_muertes, x='EDAD_RANGO', title='Distribución de muertes según rangos de edad quinquenales')
 
-
 # g) Gráfico de barras apiladas: Total de muertes por sexo
 df_muertes['SEXO'] = df_muertes['SEXO'].replace({1: 'Masculino', 2: 'Femenino'})
 muertes_por_sexo = df_muertes.groupby(['COD_DEPARTAMENTO', 'SEXO']).size().unstack(fill_value=0)
@@ -120,10 +119,7 @@ fig_stacked_bar = px.bar(
     labels={'value': 'Total de Muertes', 'COD_DEPARTAMENTO': 'Departamento'}
 )
 
-
-app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-
-
+# Definición del layout de la aplicación
 app.layout = html.Div([
     html.H3("Carlos Andrés Loaiza Ruiz"),
     html.H4("Maestría en Inteligencia Artificial"),
@@ -131,30 +127,15 @@ app.layout = html.Div([
     html.H4("Materia: Aplicaciones I"),
 
     html.Div([
-        html.Div([
-            dcc.Graph(figure=fig_map),
-        ]),
-        html.Div([
-            dcc.Graph(figure=fig_line)
-        ]),
-        html.Div([
-            dcc.Graph(figure=fig_bar)
-        ]),
-        html.Div([
-            dcc.Graph(figure=fig_pie)
-        ]),
-        html.Div([
-            dcc.Graph(figure=table_fig)
-        ]),
-        html.Div([
-            dcc.Graph(figure=fig_hist)
-        ]),
-        html.Div([
-            dcc.Graph(figure=fig_stacked_bar)
-        ])
+        html.Div([dcc.Graph(figure=fig_map)]),
+        html.Div([dcc.Graph(figure=fig_line)]),
+        html.Div([dcc.Graph(figure=fig_bar)]),
+        html.Div([dcc.Graph(figure=fig_pie)]),
+        html.Div([dcc.Graph(figure=table_fig)]),
+        html.Div([dcc.Graph(figure=fig_hist)]),
+        html.Div([dcc.Graph(figure=fig_stacked_bar)])
     ])
 ])
-
 
 if __name__ == '__main__':
     app.run_server(debug=False)
