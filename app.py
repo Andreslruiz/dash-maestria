@@ -5,6 +5,8 @@ import plotly.graph_objects as go
 from dash import Dash, dcc, html
 import dash_bootstrap_components as dbc
 
+app = Dash(__name__)
+
 # Cargar los datos
 # base_path = "C:/Users/andre/OneDrive/Escritorio/Maestria IA/Semestre 1/Aplicaciones I/Actividad 4 -Carlos Andres Loaiza Ruiz/"
 base_path = ''
