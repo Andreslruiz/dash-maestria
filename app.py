@@ -7,6 +7,7 @@ import dash_bootstrap_components as dbc
 
 # Solo una definición del objeto Dash
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
 
 # Cargar los datos
 # base_path = "C:/Users/andre/OneDrive/Escritorio/Maestria IA/Semestre 1/Aplicaciones I/Actividad 4 -Carlos Andres Loaiza Ruiz/"
